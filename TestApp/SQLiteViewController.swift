@@ -20,8 +20,10 @@ class SQLiteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.viewDelegate = self
-        tableView.dataSource = self
         searchTextField.delegate = self
+        tableView.dataSource = self
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 30
     }
     
     @IBAction func addButtonPressed(_ sender: Any) {
@@ -34,6 +36,10 @@ class SQLiteViewController: UIViewController {
 
 extension SQLiteViewController: UITableViewDataSource {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return presenter.getNumberOfSections()
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.getNumberOfRows()
     }
@@ -44,6 +50,20 @@ extension SQLiteViewController: UITableViewDataSource {
             return cell
         }
         return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            print("commit editing style")
+            presenter.deleteItem(at: indexPath.row)
+            if tableView.numberOfRows(inSection: indexPath.section) > 1 {
+                print("delete row")
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            } else {
+                tableView.deleteSections([indexPath.section], with: .fade)
+            }
+            
+        }
     }
 }
 
