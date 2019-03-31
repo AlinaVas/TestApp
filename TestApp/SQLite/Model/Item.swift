@@ -9,10 +9,10 @@
 import Foundation
 
 class Item {
-    var id: Int?
+    var id: Int
     var content: String
     
-    init(id: Int?, content: String) {
+    init(id: Int, content: String) {
         self.content = content
         self.id = id
     }

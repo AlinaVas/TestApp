@@ -61,7 +61,7 @@ class SQLitePresenter {
         
         // clean searchString so that all items could be visible
         searchString = ""
-        savedItems.append(Item(id: id, content: content))
+        savedItems.append(Item(id: id!, content: content))
         viewDelegate?.updateViews()
     }
     

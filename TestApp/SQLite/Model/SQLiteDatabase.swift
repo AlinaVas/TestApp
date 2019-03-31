@@ -152,10 +152,8 @@ struct SQLiteDatabase {
     // delete item from database
     func deleteItem(_ item: Item) {
     
-        guard item.id != nil else { return }
-        
         // delete query
-        let deleteQuery = "DELETE FROM Items WHERE id = \(item.id!);"
+        let deleteQuery = "DELETE FROM Items WHERE id = \(item.id);"
         
         // statement pointer
         var deleteStatement: OpaquePointer?
