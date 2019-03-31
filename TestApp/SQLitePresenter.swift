@@ -37,11 +37,14 @@ class SQLitePresenter {
     
     private var searchString: String = ""
     
-
-    
     func addItem(with content: String) {
+        
+        // clean searchString so that all items could be visible
+        searchString = ""
         contentSaved.append(content)
         viewDelegate?.updateViews()
+        
+        
     }
     
     func deleteItem(at index: Int) {
@@ -56,17 +59,12 @@ class SQLitePresenter {
         searchString = substring
         contentToDisplay = contentSaved
         viewDelegate?.updateViews()
-//        if substring != "" {
-//            contentToDisplay = contentSaved.filter{$0.contains(substring) }
-//        } else {
-//            contentToDisplay = contentSaved
-//        }
-//
     }
     
 }
 
-// For table view Data source
+
+// MARK: - Methods for tableView DataSource
 extension SQLitePresenter {
     
     func getNumberOfSections() -> Int {
