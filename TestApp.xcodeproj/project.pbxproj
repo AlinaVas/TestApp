@@ -18,6 +18,8 @@
 		7DC178F72250F45E003EB3B2 /* SQLiteDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC178F62250F45E003EB3B2 /* SQLiteDatabase.swift */; };
 		7DC178F9225102E2003EB3B2 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC178F8225102E2003EB3B2 /* Item.swift */; };
 		7DC1790022515ABE003EB3B2 /* SQLiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC178FF22515ABE003EB3B2 /* SQLiteViewController.swift */; };
+		7DC1790522516209003EB3B2 /* ImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC1790422516209003EB3B2 /* ImageCollectionViewController.swift */; };
+		7DC1790722516256003EB3B2 /* ImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC1790622516256003EB3B2 /* ImageViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,8 @@
 		7DC178F62250F45E003EB3B2 /* SQLiteDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteDatabase.swift; sourceTree = "<group>"; };
 		7DC178F8225102E2003EB3B2 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		7DC178FF22515ABE003EB3B2 /* SQLiteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SQLiteViewController.swift; path = ../../../../SQLiteViewController.swift; sourceTree = "<group>"; };
+		7DC1790422516209003EB3B2 /* ImageCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewController.swift; sourceTree = "<group>"; };
+		7DC1790622516256003EB3B2 /* ImageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,9 +111,10 @@
 			children = (
 				2C6E72E3224EA1B100D1D4BB /* AppDelegate.swift */,
 				7DC178FE225156A0003EB3B2 /* SQLite */,
+				7DC17903225161B0003EB3B2 /* ImageCollection */,
 				2C6E72E7224EA1B100D1D4BB /* Main.storyboard */,
-				2C6E72EA224EA1B100D1D4BB /* Assets.xcassets */,
 				2C6E72EC224EA1B100D1D4BB /* LaunchScreen.storyboard */,
+				2C6E72EA224EA1B100D1D4BB /* Assets.xcassets */,
 				2C6E72EF224EA1B100D1D4BB /* Info.plist */,
 			);
 			path = TestApp;
@@ -167,6 +172,15 @@
 				7DC178FD2251567D003EB3B2 /* Model */,
 			);
 			path = SQLite;
+			sourceTree = "<group>";
+		};
+		7DC17903225161B0003EB3B2 /* ImageCollection */ = {
+			isa = PBXGroup;
+			children = (
+				7DC1790422516209003EB3B2 /* ImageCollectionViewController.swift */,
+				7DC1790622516256003EB3B2 /* ImageViewCell.swift */,
+			);
+			path = ImageCollection;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -306,9 +320,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DC1790522516209003EB3B2 /* ImageCollectionViewController.swift in Sources */,
 				7DC1790022515ABE003EB3B2 /* SQLiteViewController.swift in Sources */,
 				7DC178F9225102E2003EB3B2 /* Item.swift in Sources */,
 				2C6E72E4224EA1B100D1D4BB /* AppDelegate.swift in Sources */,
+				7DC1790722516256003EB3B2 /* ImageViewCell.swift in Sources */,
 				2C6E7312224EA9C900D1D4BB /* ItemTableViewCell.swift in Sources */,
 				2C6E7314224EAD7200D1D4BB /* SQLitePresenter.swift in Sources */,
 				7DC178F72250F45E003EB3B2 /* SQLiteDatabase.swift in Sources */,
