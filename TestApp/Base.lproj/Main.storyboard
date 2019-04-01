@@ -29,7 +29,7 @@
         <!--CollectionView-->
         <scene sceneID="A96-hk-wvo">
             <objects>
-                <viewController id="Crw-qc-suc" customClass="ImageCollectionViewController" customModule="TestApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Crw-qc-suc" customClass="CollectionViewController" customModule="TestApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Eh2-ie-UlV">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -62,6 +62,9 @@
                                             <constraint firstAttribute="bottom" secondItem="gvd-OL-LnO" secondAttribute="bottom" id="P0m-bz-VFC"/>
                                             <constraint firstItem="gvd-OL-LnO" firstAttribute="leading" secondItem="e1M-ht-9Yk" secondAttribute="leading" id="ci5-cK-ivc"/>
                                         </constraints>
+                                        <connections>
+                                            <outlet property="imageView" destination="gvd-OL-LnO" id="uJk-QB-E9d"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
@@ -80,6 +83,9 @@
                                 <state key="normal" title="   Download   ">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="downloadButtonPressed:" destination="Crw-qc-suc" eventType="touchUpInside" id="Srs-e8-EWv"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -99,6 +105,10 @@
                         <viewLayoutGuide key="safeArea" id="Vh7-38-u7k"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="CollectionView" id="FUh-ba-tea"/>
+                    <connections>
+                        <outlet property="collectionView" destination="EMW-rW-l5U" id="M51-0n-36k"/>
+                        <outlet property="urlAdressTextField" destination="BZe-Bl-fNo" id="wur-Li-vbp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xnJ-ab-Tmo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
