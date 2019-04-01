@@ -18,11 +18,12 @@ class CollectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        collectionViewSettings()
+        setCollectionViewLayout()
+        collectionView.dataSource = self
         presenter.viewDelegate = self
     }
     
-    private func collectionViewSettings() {
+    private func setCollectionViewLayout() {
         
         let layout = UICollectionViewFlowLayout()
         let itemSize = (view.bounds.width - 2) / CGFloat(3)
@@ -36,7 +37,9 @@ class CollectionViewController: UIViewController {
     }
     
     @IBAction func downloadButtonPressed(_ sender: UIButton) {
-        
+        if urlAdressTextField.text != "" {
+            presenter.downloadArchive(with: urlAdressTextField.text!)
+        }
     }
     
 }
@@ -49,7 +52,7 @@ extension CollectionViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as? ImageViewCell {
-            cell.imageView.image = UIImage(data: presenter.getImageForCell(at: indexPath.row))
+            cell.imageView.image = UIImage(contentsOfFile: presenter.getImageForCell(at: indexPath.row))
             return cell
         }
         return UICollectionViewCell()
@@ -57,5 +60,10 @@ extension CollectionViewController: UICollectionViewDataSource {
 }
 
 extension CollectionViewController: CollectionViewDelegate {
-    
+    func updateView() {
+
+        collectionView.reloadData()
+        urlAdressTextField.text = ""
+    }
 }
+
