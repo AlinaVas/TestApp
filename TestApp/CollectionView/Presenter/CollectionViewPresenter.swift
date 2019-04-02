@@ -68,17 +68,13 @@ class CollectionViewPresenter: NSObject {
         
         //  set download task
         let task = urlSession.downloadTask(with: urlRequest)
-//        observation = task.progress.observe(\.fractionCompleted) { progress, _ in
-//            print("********!!!!!!",progress.fractionCompleted)
-//        }
         task.resume()
     }
     
     
-    
     // unpack downloaded ZIP file to 'imagesDirectory', rewriting previous downloads
     private func unzipArchive(from sourceURL: URL)  {
-        print("unzip")
+        
         let destinationURL = documentsURL.appendingPathComponent("imagesDirectory")
         
         // remove directory if it already exists
@@ -102,17 +98,14 @@ class CollectionViewPresenter: NSObject {
     }
     
     
-    
     // extract all images of .jpg and .png format 
     private func getImagesFromDirectory(url: URL) {
-        print("getImg")
-        print(url.path)
-        
         do {
+            // get names of a directory content
             let directoryContent = try FileManager.default.contentsOfDirectory(atPath: url.path)
             
+            // look for appropriate file extension
             for item in directoryContent {
-                print(item)
                 if item.hasSuffix(".jpg") || item.hasSuffix(".png") {
                     imageURLs.append(Image(urlPath: url.appendingPathComponent(item).path))
                 }
@@ -120,12 +113,12 @@ class CollectionViewPresenter: NSObject {
         } catch {
             print("Failed to read directory: \(error)")
         }
-        print("view update \(imageURLs.count)")
         DispatchQueue.main.async {
             self.viewDelegate?.updateCollectionView()
         }
     }
 }
+
 
 // MARK: - Data for CollectionView DataSource
 
@@ -141,12 +134,20 @@ extension CollectionViewPresenter {
     
 }
 
+
+
+// MARK: - URLSessionDownloadDelegate  methods
+
 extension CollectionViewPresenter: URLSessionDownloadDelegate {
     
+    // handle downloading progress
+    
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
+        
+        // show progress if possible or activity indicator othwerwise
+        
         if totalBytesExpectedToWrite > 0 {
             let progress = Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
-            print("!!!PROGRESS: \(totalBytesWritten)  of  \(totalBytesExpectedToWrite)")
             DispatchQueue.main.async {
                 self.viewDelegate?.updateProgressView(progress: progress)
             }
@@ -157,17 +158,9 @@ extension CollectionViewPresenter: URLSessionDownloadDelegate {
         }
     }
     
+    // donloading finished
+    
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
-        print("Downloading finished")
-        
-//        let destinationURL = documentsURL.appendingPathComponent("")
-//
-//        // move file to a custom destination
-//        do {
-//            try FileManager.default.moveItem(at: location, to: destinationURL)
-//        } catch {
-//            print(error.localizedDescription)
-//        }
         
         DispatchQueue.main.async {
             self.viewDelegate?.hideActivityIndicator()
@@ -175,6 +168,8 @@ extension CollectionViewPresenter: URLSessionDownloadDelegate {
         unzipArchive(from: location)
         
     }
+    
+    // handle donloading error
     
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         DispatchQueue.main.async {

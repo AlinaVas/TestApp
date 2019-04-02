@@ -65,11 +65,6 @@ extension CollectionViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         print("numb of items")
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as? ImageViewCell {
-//            if let image = UIImage(contentsOfFile: presenter.getImageForCell(at: indexPath.row)) {
-//                cell.imageView.image = image
-//            } else {
-//                cell.imageView.image = UIImage(named: "noImage")
-//            }
             cell.image = UIImage(contentsOfFile: presenter.getImageForCell(at: indexPath.row))
             return cell
         }
