@@ -12,22 +12,28 @@ import ZIPFoundation
 // MARK: - Delegate protocol for CollectionView updates
 
 protocol CollectionViewDelegate: class {
-    func updateView()
+    func updateCollectionView()
+    func updateProgressView(progress: Float)
+    func showActivityIndicator()
+    func hideActivityIndicator()
 }
 
 
 // MARK: - Presenter for CollectionViewController
 
-class CollectionViewPresenter {
+class CollectionViewPresenter: NSObject {
     
     weak var viewDelegate: CollectionViewDelegate?
     
-    private var imageURLs: [String] = []
+    private var imageURLs: [Image] = []
     
-    let documentsURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+    private let archiveName = "ImageArchive"
+    
+    private let documentsURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
     
     
     // downloading archive using given URL
+    // URL must be a direct link to a ZIP file
     func downloadArchive(with urlString: String)  {
         
         guard let remoteArchiveURL = URL(string: urlString) else {
@@ -35,7 +41,13 @@ class CollectionViewPresenter {
             return
         }
         
-        let destinationURL = documentsURL.appendingPathComponent("ImageArchive.zip")
+        // clean data source
+        imageURLs.removeAll()
+        DispatchQueue.main.async {
+            self.viewDelegate?.updateCollectionView()
+        }
+        
+        let destinationURL = documentsURL.appendingPathComponent("\(archiveName).zip")
         
         // remove archive if it already exists
         if FileManager().fileExists(atPath: destinationURL.path) {
@@ -51,23 +63,14 @@ class CollectionViewPresenter {
         urlRequest.httpMethod = "get"
         urlRequest.setValue("application/zip", forHTTPHeaderField: "content-Type")
         
+        // initialize the URLSession
+        let urlSession = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
+        
         //  set download task
-        let task = URLSession.shared.downloadTask(with: urlRequest, completionHandler: { (location, response, error) in
-            
-            // check if file was downloaded successfully
-            if let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
-               let location = location, error == nil {
-            
-                // move file to a custom destination
-                do {
-                    try FileManager.default.moveItem(at: location, to: destinationURL)
-                } catch {
-                    print(error.localizedDescription)
-                }
-
-                self.unzipArchive(from: destinationURL)
-            }
-        })
+        let task = urlSession.downloadTask(with: urlRequest)
+//        observation = task.progress.observe(\.fractionCompleted) { progress, _ in
+//            print("********!!!!!!",progress.fractionCompleted)
+//        }
         task.resume()
     }
     
@@ -75,7 +78,7 @@ class CollectionViewPresenter {
     
     // unpack downloaded ZIP file to 'imagesDirectory', rewriting previous downloads
     private func unzipArchive(from sourceURL: URL)  {
-        
+        print("unzip")
         let destinationURL = documentsURL.appendingPathComponent("imagesDirectory")
         
         // remove directory if it already exists
@@ -100,21 +103,26 @@ class CollectionViewPresenter {
     
     
     
-    // extract all images from a given directory, considering that images are named with numbers
-    // and have .jpg format: 1.jpg, 2.jpg, ...
+    // extract all images of .jpg and .png format 
     private func getImagesFromDirectory(url: URL) {
+        print("getImg")
+        print(url.path)
         
-        var imgCount = 1
-        var imgPath = url.appendingPathComponent("\(imgCount).jpg")
-        
-        while FileManager.default.fileExists(atPath: imgPath.path) {
-            imageURLs.append(imgPath.path)
-            imgCount += 1
-            imgPath = url.appendingPathComponent("\(imgCount).jpg")
+        do {
+            let directoryContent = try FileManager.default.contentsOfDirectory(atPath: url.path)
+            
+            for item in directoryContent {
+                print(item)
+                if item.hasSuffix(".jpg") || item.hasSuffix(".png") {
+                    imageURLs.append(Image(urlPath: url.appendingPathComponent(item).path))
+                }
+            }
+        } catch {
+            print("Failed to read directory: \(error)")
         }
-        
+        print("view update \(imageURLs.count)")
         DispatchQueue.main.async {
-            self.viewDelegate?.updateView()
+            self.viewDelegate?.updateCollectionView()
         }
     }
 }
@@ -128,7 +136,52 @@ extension CollectionViewPresenter {
     }
     
     func getImageForCell(at index: Int) -> String {
-        return imageURLs[index]
+        return imageURLs[index].urlPath
     }
     
+}
+
+extension CollectionViewPresenter: URLSessionDownloadDelegate {
+    
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
+        if totalBytesExpectedToWrite > 0 {
+            let progress = Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
+            print("!!!PROGRESS: \(totalBytesWritten)  of  \(totalBytesExpectedToWrite)")
+            DispatchQueue.main.async {
+                self.viewDelegate?.updateProgressView(progress: progress)
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.viewDelegate?.showActivityIndicator()
+            }
+        }
+    }
+    
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+        print("Downloading finished")
+        
+//        let destinationURL = documentsURL.appendingPathComponent("")
+//
+//        // move file to a custom destination
+//        do {
+//            try FileManager.default.moveItem(at: location, to: destinationURL)
+//        } catch {
+//            print(error.localizedDescription)
+//        }
+        
+        DispatchQueue.main.async {
+            self.viewDelegate?.hideActivityIndicator()
+        }
+        unzipArchive(from: location)
+        
+    }
+    
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+        DispatchQueue.main.async {
+            self.viewDelegate?.hideActivityIndicator()
+        }
+        if let error = error {
+            print("Error downloading: \(error.localizedDescription)")
+        }
+    }
 }

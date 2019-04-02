@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="EMW-rW-l5U">
-                                <rect key="frame" x="0.0" y="58" width="414" height="629"/>
+                                <rect key="frame" x="0.0" y="57" width="414" height="630"/>
                                 <color key="backgroundColor" red="0.29046311969999999" green="0.28381308910000003" blue="0.57257705930000002" alpha="0.10097388699726027" colorSpace="custom" customColorSpace="displayP3"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mCn-OK-hBQ">
                                     <size key="itemSize" width="131" height="126"/>
@@ -62,7 +62,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GO4-8p-Nyl">
-                                <rect key="frame" x="321" y="20" width="93" height="38"/>
+                                <rect key="frame" x="321" y="20" width="93" height="36"/>
                                 <color key="backgroundColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="   Download   ">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -71,32 +71,46 @@
                                     <action selector="downloadButtonPressed:" destination="Crw-qc-suc" eventType="touchUpInside" id="Srs-e8-EWv"/>
                                 </connections>
                             </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="o4M-dz-MXz">
+                                <rect key="frame" x="0.0" y="55" width="414" height="2"/>
+                                <color key="progressTintColor" red="0.32369780539999998" green="0.1063579395" blue="0.574860394" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </progressView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="BQO-Rh-Hpw">
+                                <rect key="frame" x="197" y="358" width="20" height="20"/>
+                                <color key="color" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="BZe-Bl-fNo" firstAttribute="top" secondItem="Vh7-38-u7k" secondAttribute="top" id="5Xe-FU-rSm"/>
+                            <constraint firstItem="o4M-dz-MXz" firstAttribute="leading" secondItem="Eh2-ie-UlV" secondAttribute="leading" id="7La-Xw-DVB"/>
                             <constraint firstItem="BZe-Bl-fNo" firstAttribute="leading" secondItem="Vh7-38-u7k" secondAttribute="leading" id="AKl-lN-VxG"/>
                             <constraint firstItem="EMW-rW-l5U" firstAttribute="leading" secondItem="Vh7-38-u7k" secondAttribute="leading" id="I6z-Lg-m09"/>
                             <constraint firstItem="GO4-8p-Nyl" firstAttribute="top" secondItem="Vh7-38-u7k" secondAttribute="top" id="NCd-cy-VFX"/>
                             <constraint firstItem="GO4-8p-Nyl" firstAttribute="trailing" secondItem="Vh7-38-u7k" secondAttribute="trailing" id="RB9-cW-cmD"/>
                             <constraint firstItem="GO4-8p-Nyl" firstAttribute="firstBaseline" secondItem="BZe-Bl-fNo" secondAttribute="firstBaseline" id="TmT-RC-Tnc"/>
+                            <constraint firstItem="BQO-Rh-Hpw" firstAttribute="centerX" secondItem="Eh2-ie-UlV" secondAttribute="centerX" id="UEY-Xz-H3F"/>
                             <constraint firstItem="EMW-rW-l5U" firstAttribute="trailing" secondItem="Vh7-38-u7k" secondAttribute="trailing" id="aGc-8y-5eU"/>
                             <constraint firstItem="GO4-8p-Nyl" firstAttribute="leading" secondItem="BZe-Bl-fNo" secondAttribute="trailing" id="eCd-vR-fZv"/>
+                            <constraint firstAttribute="trailing" secondItem="o4M-dz-MXz" secondAttribute="trailing" id="l5J-Rn-KMS"/>
                             <constraint firstItem="EMW-rW-l5U" firstAttribute="bottom" secondItem="Vh7-38-u7k" secondAttribute="bottom" id="mri-aI-OuX"/>
-                            <constraint firstItem="EMW-rW-l5U" firstAttribute="top" secondItem="BZe-Bl-fNo" secondAttribute="bottom" id="nsE-XH-W5y"/>
-                            <constraint firstItem="GO4-8p-Nyl" firstAttribute="height" secondItem="BZe-Bl-fNo" secondAttribute="height" id="umD-Z3-qIe"/>
+                            <constraint firstItem="o4M-dz-MXz" firstAttribute="top" secondItem="BZe-Bl-fNo" secondAttribute="bottom" constant="-3" id="nsE-XH-W5y"/>
+                            <constraint firstItem="BQO-Rh-Hpw" firstAttribute="centerY" secondItem="Eh2-ie-UlV" secondAttribute="centerY" id="tmr-Yw-XWY"/>
+                            <constraint firstItem="EMW-rW-l5U" firstAttribute="top" secondItem="o4M-dz-MXz" secondAttribute="bottom" id="y0m-lW-GIn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Vh7-38-u7k"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="CollectionView" id="FUh-ba-tea"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="BQO-Rh-Hpw" id="nOn-oo-uwJ"/>
                         <outlet property="collectionView" destination="EMW-rW-l5U" id="M51-0n-36k"/>
+                        <outlet property="progressView" destination="o4M-dz-MXz" id="hSN-yC-I9T"/>
                         <outlet property="urlAdressTextField" destination="BZe-Bl-fNo" id="wur-Li-vbp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xnJ-ab-Tmo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="57" y="755"/>
+            <point key="canvasLocation" x="56.521739130434788" y="754.89130434782612"/>
         </scene>
         <!--SQLite-->
         <scene sceneID="tU8-iu-iBn">

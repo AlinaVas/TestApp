@@ -19,6 +19,7 @@
 		7DC1790B22516616003EB3B2 /* SQLiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC1790A22516616003EB3B2 /* SQLiteViewController.swift */; };
 		7DC1790D2251673A003EB3B2 /* ImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC1790C2251673A003EB3B2 /* ImageViewCell.swift */; };
 		7DC1790F2251F673003EB3B2 /* CollectionViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC1790E2251F673003EB3B2 /* CollectionViewPresenter.swift */; };
+		7DC179142252822B003EB3B2 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC179132252822B003EB3B2 /* Image.swift */; };
 		D98559F4FE44B6529B22D4F2 /* Pods_TestApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 833368DF9B138DCB95876FF7 /* Pods_TestApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +39,7 @@
 		7DC1790A22516616003EB3B2 /* SQLiteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteViewController.swift; sourceTree = "<group>"; };
 		7DC1790C2251673A003EB3B2 /* ImageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewCell.swift; sourceTree = "<group>"; };
 		7DC1790E2251F673003EB3B2 /* CollectionViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewPresenter.swift; sourceTree = "<group>"; };
+		7DC179132252822B003EB3B2 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		833368DF9B138DCB95876FF7 /* Pods_TestApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8E8E94C78D6D9909979A1AE /* Pods-TestApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestApp.debug.xcconfig"; path = "Target Support Files/Pods-TestApp/Pods-TestApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -152,8 +154,17 @@
 			children = (
 				7DC1791022526C20003EB3B2 /* View */,
 				7DC1791122526C3A003EB3B2 /* Presenter */,
+				7DC1791522528236003EB3B2 /* Model */,
 			);
 			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		7DC1791522528236003EB3B2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7DC179132252822B003EB3B2 /* Image.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		EFF2316F0D1CE9AFA78BC218 /* Pods */ = {
@@ -296,6 +307,7 @@
 				7DC178F72250F45E003EB3B2 /* SQLiteDatabase.swift in Sources */,
 				7DC1790B22516616003EB3B2 /* SQLiteViewController.swift in Sources */,
 				7DC1790F2251F673003EB3B2 /* CollectionViewPresenter.swift in Sources */,
+				7DC179142252822B003EB3B2 /* Image.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,6 +12,14 @@ class ImageViewCell: UICollectionViewCell {
     
     @IBOutlet weak var imageView: UIImageView!
     
-    
+    var image: UIImage? {
+        didSet {
+            if image != nil {
+                imageView.image = image
+            } else {
+                imageView.image = UIImage(named: "noImage")
+            }
+        }
+    }
     
 }
