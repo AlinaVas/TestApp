@@ -110,7 +110,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xnJ-ab-Tmo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="56.521739130434788" y="754.89130434782612"/>
+            <point key="canvasLocation" x="490" y="755"/>
         </scene>
         <!--SQLite-->
         <scene sceneID="tU8-iu-iBn">
@@ -213,7 +213,23 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hri-MI-bDX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-629" y="755"/>
+            <point key="canvasLocation" x="-1099" y="755"/>
+        </scene>
+        <!--PanoramicView-->
+        <scene sceneID="rxW-h7-0GT">
+            <objects>
+                <viewController id="ug4-0S-4gA" customClass="PanoramicViewController" customModule="TestApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="o4K-Cr-Rhk">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="hrx-sx-fMp"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="PanoramicView" id="1UU-UC-y8H"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qhU-Uz-JLa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-306" y="755"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="X9R-5p-lRG">
@@ -227,6 +243,7 @@
                     <connections>
                         <segue destination="tPc-ne-OOD" kind="relationship" relationship="viewControllers" id="wbx-l5-Cfd"/>
                         <segue destination="Crw-qc-suc" kind="relationship" relationship="viewControllers" id="QE6-Wj-SZZ"/>
+                        <segue destination="ug4-0S-4gA" kind="relationship" relationship="viewControllers" id="1rk-l3-M79"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2rj-Ge-Def" userLabel="First Responder" sceneMemberID="firstResponder"/>

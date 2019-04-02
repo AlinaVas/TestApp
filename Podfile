@@ -6,5 +6,5 @@ target 'TestApp' do
 
   # Pods for TestApp
     pod 'ZIPFoundation', :inhibit_warnings => true
-
+    pod 'CTPanoramaView', :inhibit_warnings => true
 end
